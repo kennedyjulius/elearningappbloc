@@ -1,5 +1,6 @@
+import 'package:elearning_app_bloc/pages/others/authentication/signin_page.dart';
+import 'package:elearning_app_bloc/pages/others/home_page.dart';
 import 'package:elearning_app_bloc/pages/welcome/bloc/welcome_bloc.dart';
-import 'package:elearning_app_bloc/pages/welcome/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,7 +27,10 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           
         ),
-        home: Welcome()
+        routes: {
+          "myHomePage":(context)=>MyHomePage(),
+          "signIn":(context)=>SignInPage(),
+        },
         ),
       ),
     );

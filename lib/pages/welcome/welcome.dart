@@ -1,5 +1,4 @@
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:elearning_app_bloc/pages/others/home_page.dart';
 import 'package:elearning_app_bloc/pages/welcome/bloc/welcome_bloc.dart';
 import 'package:elearning_app_bloc/pages/welcome/bloc/welcome_events.dart';
 import 'package:elearning_app_bloc/pages/welcome/bloc/welcome_state.dart';
@@ -135,7 +134,7 @@ class _WelcomeState extends State<Welcome> {
                           //animation
                           }else{
                             //jump to anew page
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyHomePage(),));
+                            Navigator.of(context).pushNamedAndRemoveUntil("myHomePage", (route) => false);
                           }
                         },
                         child: Container(
