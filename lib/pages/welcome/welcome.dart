@@ -1,4 +1,5 @@
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:elearning_app_bloc/pages/others/home_page.dart';
 import 'package:elearning_app_bloc/pages/welcome/bloc/welcome_bloc.dart';
 import 'package:elearning_app_bloc/pages/welcome/bloc/welcome_events.dart';
 import 'package:elearning_app_bloc/pages/welcome/bloc/welcome_state.dart';
@@ -14,6 +15,8 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
+
+  PageController pageController = PageController(viewportFraction: 1, initialPage: 0);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,6 +29,8 @@ class _WelcomeState extends State<Welcome> {
                 alignment: Alignment.topCenter,
                 children: [
                   PageView(
+                    controller: pageController,
+                    physics: AlwaysScrollableScrollPhysics(),
                     onPageChanged: (index) {
                       print("Index value is ${index}");
                       state.page = index;
@@ -38,7 +43,7 @@ class _WelcomeState extends State<Welcome> {
                       "next",
                       "First See Learning",
                       "Forget about a for of a paper all knowledge is on learning",
-                      "image path"
+                      "assets/images/reading.png"
                      ),
                       _page(
                       2,
@@ -46,7 +51,7 @@ class _WelcomeState extends State<Welcome> {
                       "next",
                       "connect with everyone",
                       "Always Keep in Touch with your Tutor & Friend . lets get connected",
-                      "image path"
+                      "assets/images/boy.png"
                      ),
                       _page(
                       3,
@@ -54,7 +59,7 @@ class _WelcomeState extends State<Welcome> {
                       "next",
                       "Always Fascinated Learning",
                       "Anywhere, anytime. The time isat our desertion.",
-                      "image path"
+                      "assets/images/man.png"
                      ),
                     ],
                   ),
@@ -92,7 +97,7 @@ class _WelcomeState extends State<Welcome> {
                       SizedBox(
                         width: 345.w,
                         height: 345.w,
-                        child: Image.asset(imagePath),
+                        child: Image.asset(imagePath, fit: BoxFit.cover,),
                       ),
                       Container(
                         child: 
@@ -120,36 +125,50 @@ class _WelcomeState extends State<Welcome> {
                         ), 
                       ),
 
-                      Container(
-                        margin: EdgeInsets.only(top: 100.h, left: 25.w, right: 25.w),
-                        width: 325.w,
-                        height: 50.h,
-                        color: Colors.redAccent,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(15.w),
+                      GestureDetector(
+                        onTap: () {
+                          //within 0-2 index
+                          if (index<3) {
+                            pageController.animateTo(0, 
+                            duration: Duration(milliseconds: 5000), 
+                            curve: Curves.decelerate);
+                          //animation
+                          }else{
+                            //jump to anew page
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyHomePage(),));
+                          }
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(top: 100.h, left: 25.w, right: 25.w),
+                          width: 325.w,
+                          height: 50.h,
+                          color: Colors.redAccent,
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15.w),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: Offset(0, 10)
+                              )
+                            ]
                           ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 2,
-                              offset: Offset(0, 10)
-                            )
-                          ]
-                        ),
-                        child: Center(
-                          child: Text(
-                          buttonName,
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white.withOpacity(0.5)
+                          child: Center(
+                            child: Text(
+                            buttonName,
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.white.withOpacity(0.5)
+                            ),
                           ),
+                          ),
+                          
                         ),
-                        ),
-                        
                       )
                     ],
                   );
