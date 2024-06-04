@@ -1,5 +1,9 @@
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:elearning_app_bloc/pages/welcome/bloc/welcome_bloc.dart';
+import 'package:elearning_app_bloc/pages/welcome/bloc/welcome_events.dart';
+import 'package:elearning_app_bloc/pages/welcome/bloc/welcome_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Welcome extends StatefulWidget {
@@ -14,59 +18,69 @@ class _WelcomeState extends State<Welcome> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        body: Container(
-          width: 375.w,
-          child: Stack(
-            alignment: Alignment.topCenter,
-            children: [
-              PageView(
+        body: BlocBuilder<WelcomeBloc, WelcomeState>(
+          builder: (context, state) {
+            return Container(
+              width: 375.w,
+              child: Stack(
+                alignment: Alignment.topCenter,
                 children: [
-                 _page(
-                  1,
-                  context,
-                  "next",
-                  "First See Learning",
-                  "Forget about a for of a paper all knowledge is on learning",
-                  "image path"
-                 ),
-                  _page(
-                  2,
-                  context,
-                  "next",
-                  "connect with everyone",
-                  "Always Keep in Touch with your Tutor & Friend . lets get connected",
-                  "image path"
-                 ),
-                  _page(
-                  3,
-                  context,
-                  "next",
-                  "Always Fascinated Learning",
-                  "Anywhere, anytime. The time isat our desertion.",
-                  "image path"
-                 ),
+                  PageView(
+                    onPageChanged: (index) {
+                      print("Index value is ${index}");
+                      state.page = index;
+                      BlocProvider.of<WelcomeBloc>(context).add(WelcomeEvent());
+                    },
+                    children: [
+                     _page(
+                      1,
+                      context,
+                      "next",
+                      "First See Learning",
+                      "Forget about a for of a paper all knowledge is on learning",
+                      "image path"
+                     ),
+                      _page(
+                      2,
+                      context,
+                      "next",
+                      "connect with everyone",
+                      "Always Keep in Touch with your Tutor & Friend . lets get connected",
+                      "image path"
+                     ),
+                      _page(
+                      3,
+                      context,
+                      "next",
+                      "Always Fascinated Learning",
+                      "Anywhere, anytime. The time isat our desertion.",
+                      "image path"
+                     ),
+                    ],
+                  ),
+                  //dots indicator
+                  Positioned(
+                    bottom: 100.h,
+                    child: DotsIndicator(
+                      position: state.page,
+                      dotsCount: 3, 
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      decorator: DotsDecorator(
+                        color: Colors.blue,
+                        activeColor: Colors.grey,
+                        size: Size.square(8.0),
+                        activeSize: Size(10.0, 8.0),
+                        activeShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+            
+                        )
+                      ),
+                      ),
+                    ),
                 ],
               ),
-              //dots indicator
-              Positioned(
-                bottom: 100.h,
-                child: DotsIndicator(
-                  dotsCount: 3, 
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  decorator: DotsDecorator(
-                    color: Colors.blue,
-                    activeColor: Colors.grey,
-                    size: Size.square(8.0),
-                    activeSize: Size(10.0, 8.0),
-                    activeShape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-
-                    )
-                  ),
-                  ),
-                ),
-            ],
-          ),
+            );
+          }
         ),
       ),
     );
