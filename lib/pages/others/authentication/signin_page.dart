@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -34,7 +36,7 @@ class _SignInPageState extends State<SignInPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 reusableText("Email"),
-                buildTextField("Email", "email")
+                buildTextField("Enter your Email address", "email" "user"),
               ],
             ),
           ),
@@ -108,14 +110,14 @@ class _SignInPageState extends State<SignInPage> {
     );
    }
 
-   Widget buildTextField(String text, String textType){
+   Widget buildTextField(String hinttext, String textType, String iconName){
     return Container(
       width: 325.w,
       height: 50.h,
-      color: Colors.red,
+      color: Colors.white,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
-        color: Colors.red,
+        color: Colors.grey.withOpacity(0.5),
         borderRadius: BorderRadius.all(Radius.circular(15.w),
         
         )
@@ -123,7 +125,50 @@ class _SignInPageState extends State<SignInPage> {
       child: Row(
         children: [
           Container(
-            child: Image.asset("assets/icons/user.png"),
+            width: 16.w,
+            margin: EdgeInsets.only(left: 17.w),
+            height: 16.w,
+            child: Image.asset("assets/icons/$iconName.png"),
+          ),
+          Container(
+            width: 270.w,
+            height: 50.h,
+            child: TextField(
+              keyboardType: TextInputType.multiline,
+              style: TextStyle(
+                fontFamily: "Avenir",
+                fontSize: 12.sp,
+                color: Colors.black,
+                fontWeight: FontWeight.normal
+              ),
+              decoration: InputDecoration(
+                hintText: hinttext,
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                  )
+                ),
+                enabledBorder: OutlineInputBorder(
+                 borderSide: BorderSide(
+                  color: Colors.transparent,
+                 ),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                  )
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.transparent
+                  )
+                ),
+                hintStyle: TextStyle(
+                  color: Colors.transparent
+                )
+              ),
+              
+            ),
           )
         ],
       ),
