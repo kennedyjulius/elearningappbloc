@@ -7,15 +7,14 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   // Constructor initializing the bloc with the initial state
   SignInBloc() : super(const SignInState()) {
     // Handling EmailEvent
-    on<EmailEvent>((event, emit) {
-      // Update the state with the new email
-      emit(state.copyWith(email: event.email));
-    });
+    on<EmailEvent>(_emailEvent);
+    on<PasswordEvent>(_passwordEvent);
+  }
+  void _emailEvent(EmailEvent event, Emitter<SignInState> emit){
+    emit(state.copyWith(email: event.email));
+  }
 
-    // Handling PasswordEvent
-    on<PasswordEvent>((event, emit) {
-      // Update the state with the new password
-      emit(state.copyWith(password: event.password));
-    });
+    void _passwordEvent(PasswordEvent event, Emitter<SignInState> emit){
+    emit(state.copyWith(password: event.password));
   }
 }

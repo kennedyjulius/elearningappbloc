@@ -90,16 +90,18 @@ class _SignInPageState extends State<SignInPage> {
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(1.0),
         child: Container(
-          color: AppColors.primarySecondaryBackground,
+          color: Colors.grey.withOpacity(0.5),
           height: 1.0,
         ),
       ),
-      title: Text(
-        "Log in",
-        style: TextStyle(
-          color: AppColors.primaryText,
-          fontSize: 16,
-          fontWeight: FontWeight.normal,
+      title: Center(
+        child: Text(
+          "Log in",
+          style: TextStyle(
+            color: AppColors.primaryText,
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
         ),
       ),
     );
@@ -150,7 +152,7 @@ class _SignInPageState extends State<SignInPage> {
 
   Widget buildTextField(String hinttext, String textType, String iconName, {required Function(String) onChanged, String? initialValue, bool obscureText = false}) {
     return Container(
-      width: 325.w,
+      width: MediaQuery.of(context).size.width-20,
       height: 50.h,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
@@ -214,7 +216,7 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  Widget forgotPassword(){
+  Widget forgotPassword() {
     return Container(
       margin: EdgeInsets.only(left: 25.w),
       width: 260.w,
@@ -223,19 +225,26 @@ class _SignInPageState extends State<SignInPage> {
         onTap: () {
           // Add your forgot password logic here
         },
-        child: Text("Forgot Password",
-        style: TextStyle(
-          color: AppColors.primaryText,
-          fontWeight: FontWeight.w200,
-          decoration: TextDecoration.underline,
-          decorationColor: Colors.blue,
-          fontSize: 12.sp,
-        ),),
+        child: GestureDetector(
+          onTap: () {
+            
+          },
+          child: Text(
+            "Forgot Password",
+            style: TextStyle(
+              color: AppColors.primaryText,
+              fontWeight: FontWeight.w200,
+              decoration: TextDecoration.underline,
+              decorationColor: Colors.blue,
+              fontSize: 12.sp,
+            ),
+          ),
+        ),
       ),
     );
   }
 
-  Widget buildLogInAndRegButton(String buttonName, String buttonType){
+  Widget buildLogInAndRegButton(String buttonName, String buttonType) {
     return GestureDetector(
       onTap: () {
         // Add your onTap logic here
@@ -246,9 +255,9 @@ class _SignInPageState extends State<SignInPage> {
         height: 50.h,
         decoration: BoxDecoration(
           border: Border.all(
-            color: buttonType=="login"?AppColors.primaryElement:AppColors.primaryBackground,
+            color: buttonType == "login" ? AppColors.primaryElement : AppColors.primaryBackground,
           ),
-          color: buttonType=="login"?AppColors.primaryElement:AppColors.primaryBackground,
+          color: buttonType == "login" ? AppColors.primaryElement : AppColors.primaryBackground,
           borderRadius: BorderRadius.circular(15.w),
           boxShadow: [
             BoxShadow(
@@ -263,31 +272,13 @@ class _SignInPageState extends State<SignInPage> {
           child: Text(
             buttonName,
             style: TextStyle(
-              color: buttonType=="login"?AppColors.primaryBackground:AppColors.primaryText,
+              color: buttonType == "login" ? AppColors.primaryBackground : AppColors.primaryText,
               fontSize: 16.sp,
-              fontWeight: FontWeight.normal,
+              fontWeight: FontWeight.normal
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-void main() {
-  runApp(
-    BlocProvider(
-      create: (context) => SignInBloc(),
-      child: MyApp(),
-    ),
-  );
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SignInPage(),
     );
   }
 }
