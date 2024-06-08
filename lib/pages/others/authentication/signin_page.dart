@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_blocs.dart';
 import 'package:elearning_app_bloc/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_event.dart';
+import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_state.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -38,15 +41,40 @@ class _SignInPageState extends State<SignInPage> {
                   children: [
                     reusableText("Email"),
                     SizedBox(height: 5.h,),
-                    buildTextField("Enter your Email address", "email", "user"),
+                    BlocBuilder<SignInBloc, SignInState>(
+                      builder: (context, state) {
+                        return buildTextField(
+                          "Enter your Email address",
+                          "email",
+                          "user",
+                          onChanged: (email) {
+                            context.read<SignInBloc>().add(EmailEvent(email));
+                          },
+                          initialValue: state.email,
+                        );
+                      },
+                    ),
                     reusableText("Password"),
                     SizedBox(height: 5.h,),
-                    buildTextField("Enter your Password", "Password", "lock"),
+                    BlocBuilder<SignInBloc, SignInState>(
+                      builder: (context, state) {
+                        return buildTextField(
+                          "Enter your Password",
+                          "password",
+                          "lock",
+                          onChanged: (password) {
+                            context.read<SignInBloc>().add(PasswordEvent(password));
+                          },
+                          initialValue: state.password,
+                          obscureText: true,
+                        );
+                      },
+                    ),
                     SizedBox(height: 10.h),
                     forgotPassword(),
                     SizedBox(height: 10.h,),
-                    buildLogInAndRegButton("Login", ),
-                    buildLogInAndRegButton("Register", ),
+                    buildLogInAndRegButton("Login", "login"),
+                    buildLogInAndRegButton("Register", "register"),
                   ],
                 ),
               ),
@@ -120,7 +148,7 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  Widget buildTextField(String hinttext, String textType, String iconName) {
+  Widget buildTextField(String hinttext, String textType, String iconName, {required Function(String) onChanged, String? initialValue, bool obscureText = false}) {
     return Container(
       width: 325.w,
       height: 50.h,
@@ -150,7 +178,9 @@ class _SignInPageState extends State<SignInPage> {
                 fontWeight: FontWeight.normal,
               ),
               autocorrect: false,
-              obscureText: textType=="password"?true:false,
+              obscureText: obscureText,
+              onChanged: onChanged,
+              controller: TextEditingController(text: initialValue),
               decoration: InputDecoration(
                 hintText: hinttext,
                 border: OutlineInputBorder(
@@ -191,9 +221,9 @@ class _SignInPageState extends State<SignInPage> {
       height: 44.h,
       child: GestureDetector(
         onTap: () {
-          
+          // Add your forgot password logic here
         },
-        child: Text("forgot Password",
+        child: Text("Forgot Password",
         style: TextStyle(
           color: AppColors.primaryText,
           fontWeight: FontWeight.w200,
@@ -208,7 +238,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget buildLogInAndRegButton(String buttonName, String buttonType){
     return GestureDetector(
       onTap: () {
-        
+        // Add your onTap logic here
       },
       child: Container(
         margin: EdgeInsets.only(left: 25.w, right: 25.w, top: 40.h),
@@ -218,7 +248,7 @@ class _SignInPageState extends State<SignInPage> {
           border: Border.all(
             color: buttonType=="login"?AppColors.primaryElement:AppColors.primaryBackground,
           ),
-          color: buttonType =="login"?AppColors.primaryElement:AppColors.primaryBackground,
+          color: buttonType=="login"?AppColors.primaryElement:AppColors.primaryBackground,
           borderRadius: BorderRadius.circular(15.w),
           boxShadow: [
             BoxShadow(
@@ -229,15 +259,35 @@ class _SignInPageState extends State<SignInPage> {
             ),
           ]
         ),
-        child: Text(
-          buttonName,
-        style: TextStyle(
-          color: buttonType =="login"?AppColors.primaryBackground:AppColors.primaryText,
-          fontSize: 16.sp,
-          fontWeight: FontWeight.normal
-        ),),
+        child: Center(
+          child: Text(
+            buttonName,
+            style: TextStyle(
+              color: buttonType=="login"?AppColors.primaryBackground:AppColors.primaryText,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+        ),
       ),
     );
   }
 }
 
+void main() {
+  runApp(
+    BlocProvider(
+      create: (context) => SignInBloc(),
+      child: MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: SignInPage(),
+    );
+  }
+}
