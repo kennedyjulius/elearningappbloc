@@ -195,7 +195,7 @@ class _SignInPageState extends State<SignInPage> {
         },
         child: Text("forgot Password",
         style: TextStyle(
-          color: Colors.black,
+          color: AppColors.primaryText,
           fontWeight: FontWeight.w200,
           decoration: TextDecoration.underline,
           decorationColor: Colors.blue,
