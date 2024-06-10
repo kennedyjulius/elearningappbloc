@@ -18,21 +18,35 @@ class SignInController {
       String password = state.password;
       if (emailAddress.isEmpty) {
       //
+      print("email is empty");
       }
       if (password.isEmpty) {
       //
+      print("password is empty");
       }
       try {
         final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailAddress, 
         password: password);
         if (credential.user==null) {
-        
+        print("user does not exist");
         }
         if (!credential.user!.emailVerified) {
-        
+        print("user not verified");
         }
-      } catch (e) {
-        
+        var user = credential.user;
+        if (user!=null) {
+        print("User does exist");
+        }else{
+          print("no user");
+        }
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+        print("No user found associated with that email");
+        }else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user');
+        }else if (e.code=='invalid-email') {
+        print("Your email format is wrong");
+        }
       }
       }
     } catch (e) {

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:elearning_app_bloc/pages/others/authentication/auth_controller.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_blocs.dart';
 import 'package:elearning_app_bloc/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -73,8 +74,13 @@ class _SignInPageState extends State<SignInPage> {
                     SizedBox(height: 10.h),
                     forgotPassword(),
                     SizedBox(height: 10.h,),
-                    buildLogInAndRegButton("Login", "login"),
-                    buildLogInAndRegButton("Register", "register"),
+                    buildLogInAndRegButton("Login", "login", () {
+                      // print("Log in Button");
+                      SignInController(context: context).handleSignIn("email");
+                    },),
+                    buildLogInAndRegButton("Register", "register", () {
+                      // print("Register button");
+                    },),
                   ],
                 ),
               ),
@@ -244,11 +250,9 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  Widget buildLogInAndRegButton(String buttonName, String buttonType) {
+  Widget buildLogInAndRegButton(String buttonName, String buttonType, void Function()? func) {
     return GestureDetector(
-      onTap: () {
-        // Add your onTap logic here
-      },
+      onTap: () => func,
       child: Container(
         margin: EdgeInsets.only(left: 25.w, right: 25.w, top: 40.h),
         width: 325.w,
