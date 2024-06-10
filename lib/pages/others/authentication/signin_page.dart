@@ -80,6 +80,7 @@ class _SignInPageState extends State<SignInPage> {
                     },),
                     buildLogInAndRegButton("Register", "register", () {
                       // print("Register button");
+                      Navigator.of(context).pushNamed("register");
                     },),
                   ],
                 ),
