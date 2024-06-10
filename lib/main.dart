@@ -1,3 +1,4 @@
+import 'package:elearning_app_bloc/bloc_providers.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_blocs.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/signin_page.dart';
 import 'package:elearning_app_bloc/pages/others/home_page.dart';
@@ -18,10 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => WelcomeBloc()),
-        BlocProvider(create: (context) => SignInBloc()),
-      ],
+      providers: AppBlocProviders.allBlocProviders,
       child: ScreenUtilInit(
         builder: (context, child) => MaterialApp(
           debugShowCheckedModeBanner: false,
