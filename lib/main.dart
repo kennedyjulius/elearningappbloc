@@ -1,9 +1,7 @@
 import 'package:elearning_app_bloc/bloc_providers.dart';
-import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_blocs.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/register.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/signin_page.dart';
 import 'package:elearning_app_bloc/pages/others/home_page.dart';
-import 'package:elearning_app_bloc/pages/welcome/bloc/welcome_bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

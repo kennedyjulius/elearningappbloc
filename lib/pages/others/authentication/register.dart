@@ -1,11 +1,13 @@
-import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_blocs.dart';
+// ignore_for_file: prefer_const_constructors
+
+import 'package:elearning_app_bloc/pages/others/authentication/bloc/register_blocs.dart';
+import 'package:elearning_app_bloc/pages/others/authentication/bloc/register_state.dart';
+import 'package:elearning_app_bloc/pages/others/authentication/bloc/register_event.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_event.dart';
-import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_state.dart';
 import 'package:elearning_app_bloc/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -15,94 +17,82 @@ class RegisterScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: buildAppBar(),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              buildThirdPartLogin(context),
-              const SizedBox(height: 10),
-              reusableText("Or use your email account to register"),
-              Container(
-                margin: EdgeInsets.only(
-                  top: 66.h,
-                ),
-                padding: EdgeInsets.only(
-                  left: 25.w,
-                  right: 25.w,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    reusableText("Email"),
-                    SizedBox(height: 5.h,),
-                    BlocBuilder<SignInBloc, SignInState>(
-                      builder: (context, state) {
-                        return buildTextField(
+        body: BlocBuilder<RegisterBlocs, RegisterStates>(
+          builder: (context, state) {
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  buildThirdPartLogin(context),
+                  const SizedBox(height: 10),
+                  reusableText("Or use your email account to register"),
+                  Container(
+                    margin: EdgeInsets.only(
+                      top: 66.h,
+                    ),
+                    padding: EdgeInsets.only(
+                      left: 25.w,
+                      right: 25.w,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        reusableText("Username"),
+                        SizedBox(height: 5.h),
+                        buildTextField(
+                          "Enter your Username",
+                          "user",
+                          "user",
+                          onChanged: (username) {
+                            context.read<RegisterBlocs>().add(UsernameEvent(username));
+                          },
+                          initialValue: state.username,
+                        ),
+                        reusableText("Email"),
+                        SizedBox(height: 5.h),
+                        buildTextField(
                           "Enter your Email address",
                           "email",
-                          "user",
+                          "email",
                           onChanged: (email) {
-                            context.read<SignInBloc>().add(EmailEvent(email));
+                            context.read<RegisterBlocs>().add(EmailEvent(email) as RegisterEvent);
                           },
                           initialValue: state.email,
-                        );
-                      },
-                    ),
-                    reusableText("Username"),
-                    SizedBox(height: 5.h,),
-                    BlocBuilder<SignInBloc, SignInState>(
-                      builder: (context, state) {
-                        return buildTextField(
-                          "Username",
-                          "Username",
-                          "user",
-                          onChanged: (email) {
-                            context.read<SignInBloc>().add(EmailEvent(email));
-                          },
-                          initialValue: state.email,
-                        );
-                      },
-                    ),
-                    reusableText("Password"),
-                    SizedBox(height: 5.h,),
-                    BlocBuilder<SignInBloc, SignInState>(
-                      builder: (context, state) {
-                        return buildTextField(
+                        ),
+                        reusableText("Password"),
+                        SizedBox(height: 5.h),
+                        buildTextField(
                           "Enter your Password",
                           "password",
                           "lock",
                           onChanged: (password) {
-                            context.read<SignInBloc>().add(PasswordEvent(password));
+                            context.read<RegisterBlocs>().add(PasswordEvent(password) as RegisterEvent);
                           },
                           initialValue: state.password,
                           obscureText: true,
-                        );
-                      },
-                    ),
-                    reusableText("Confirm Password"),
-                    SizedBox(height: 5.h,),
-                    BlocBuilder<SignInBloc, SignInState>(
-                      builder: (context, state) {
-                        return buildTextField(
+                        ),
+                        reusableText("Confirm Password"),
+                        SizedBox(height: 5.h),
+                        buildTextField(
                           "Confirm your Password",
-                          " Confirm password",
+                          "confirm password",
                           "lock",
-                          onChanged: (password) {
-                            context.read<SignInBloc>().add(PasswordEvent(password));
+                          onChanged: (confirmPassword) {
+                            context.read<RegisterBlocs>().add(ConfirmPasswordEvent(confirmPassword));
                           },
-                          initialValue: state.password,
+                          initialValue: state.confirmPassword,
                           obscureText: true,
-                        );
-                      },
+                        ),
+                        SizedBox(height: 10.h),
+                        buildLogInAndRegButton("Register", "register", () {
+                          // Add your register button logic here
+                        }),
+                      ],
                     ),
-                    SizedBox(height: 10.h),
-                    buildLogInAndRegButton("Register", "register", () {
-                      //RegisterController(context: context).handleRegister();
-                    }),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
@@ -173,9 +163,12 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget buildTextField(String hinttext, String textType, String iconName, {required Function(String) onChanged, String? initialValue, bool obscureText = false}) {
+  Widget buildTextField(String hinttext, String textType, String iconName,
+      {required Function(String) onChanged,
+      String? initialValue,
+      bool obscureText = false}) {
     return Container(
-      width: 200,
+      width: 200.w,
       height: 50.h,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
@@ -193,9 +186,11 @@ class RegisterScreen extends StatelessWidget {
           SizedBox(width: 8.w),
           SizedBox(
             height: 50.h,
-            width: 270.w,
+            width: 200.w,
             child: TextField(
-              keyboardType: TextInputType.emailAddress,
+              keyboardType: textType == "email"
+                  ? TextInputType.emailAddress
+                  : TextInputType.text,
               style: TextStyle(
                 fontFamily: "Avenir",
                 fontSize: 14.sp,
@@ -239,7 +234,8 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget buildLogInAndRegButton(String buttonName, String buttonType, void Function()? func) {
+  Widget buildLogInAndRegButton(
+      String buttonName, String buttonType, void Function()? func) {
     return GestureDetector(
       onTap: func,
       child: Container(
@@ -248,9 +244,13 @@ class RegisterScreen extends StatelessWidget {
         height: 50.h,
         decoration: BoxDecoration(
           border: Border.all(
-            color: buttonType == "register" ? AppColors.primaryElement : AppColors.primaryBackground,
+            color: buttonType == "register"
+                ? AppColors.primaryElement
+                : AppColors.primaryBackground,
           ),
-          color: buttonType == "register" ? AppColors.primaryElement : AppColors.primaryBackground,
+          color: buttonType == "register"
+              ? AppColors.primaryElement
+              : AppColors.primaryBackground,
           borderRadius: BorderRadius.circular(15.w),
           boxShadow: [
             BoxShadow(
@@ -265,7 +265,9 @@ class RegisterScreen extends StatelessWidget {
           child: Text(
             buttonName,
             style: TextStyle(
-              color: buttonType == "register" ? AppColors.primaryBackground : AppColors.primaryText,
+              color: buttonType == "register"
+                  ? AppColors.primaryBackground
+                  : AppColors.primaryText,
               fontSize: 16.sp,
               fontWeight: FontWeight.normal,
             ),
