@@ -4,6 +4,7 @@ import 'package:elearning_app_bloc/pages/others/authentication/bloc/register_blo
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/register_state.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/register_event.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_event.dart';
+import 'package:elearning_app_bloc/pages/others/authentication/register_controller.dart';
 import 'package:elearning_app_bloc/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -85,6 +86,7 @@ class RegisterScreen extends StatelessWidget {
                         SizedBox(height: 10.h),
                         buildLogInAndRegButton("Register", "register", () {
                           // Add your register button logic here
+                          RegisterController(context).handleEmailRegister();
                         }),
                       ],
                     ),
