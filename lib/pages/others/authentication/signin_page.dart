@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:elearning_app_bloc/pages/others/authentication/auth_controller.dart';
+import 'package:elearning_app_bloc/pages/others/authentication/signin_controller.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_blocs.dart';
 import 'package:elearning_app_bloc/utils/colors.dart';
 import 'package:flutter/material.dart';
