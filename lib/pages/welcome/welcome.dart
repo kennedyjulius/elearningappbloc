@@ -1,7 +1,9 @@
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:elearning_app_bloc/global.dart';
 import 'package:elearning_app_bloc/pages/welcome/bloc/welcome_bloc.dart';
 import 'package:elearning_app_bloc/pages/welcome/bloc/welcome_events.dart';
 import 'package:elearning_app_bloc/pages/welcome/bloc/welcome_state.dart';
+import 'package:elearning_app_bloc/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -134,6 +136,7 @@ class _WelcomeState extends State<Welcome> {
                           //animation
                           }else{
                             //jump to anew page
+                            Global.storageService.setBool(AppConstants.STORAGE_DEVICE_OPEN_FIRST_TIME, true);
                             Navigator.of(context).pushNamedAndRemoveUntil("myHomePage", (route) => false);
                           }
                         },

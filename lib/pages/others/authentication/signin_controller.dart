@@ -1,5 +1,6 @@
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_blocs.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/widgets/flutter_toast.dart';
+import 'package:elearning_app_bloc/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,6 +48,8 @@ class SignInController {
           var user = credential.user;
           if (user != null) {
             toastInfo(msg: "You are not a suer of this account");
+            Global.storageService.setString(AppConstants.STORAGE_USER_PROFILE_KEY, "12345678"), 
+            Navigator.of(context).pushNamedAndRemoveUntil("/homescreen", (route) => false,);
           } else {
             toastInfo(msg: "No user Found");
           }

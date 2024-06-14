@@ -1,3 +1,5 @@
+
+import 'package:elearning_app_bloc/pages/others/authentication/bloc/home_bloc.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/register_blocs.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_blocs.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/register.dart';
@@ -15,24 +17,22 @@ class AppPages {
     PageEntity(
       route: AppRoutes.INITIAL,
       page: const Welcome(),
-      bloc: BlocProvider(create: (_) => WelcomeBloc()),
+      bloc: BlocProvider<WelcomeBloc>(create: (_) => WelcomeBloc()),
     ),
     PageEntity(
       route: AppRoutes.REGISTER,
       page: const RegisterScreen(),
-      bloc: BlocProvider(create: (_) => RegisterBlocs()),
+      bloc: BlocProvider<RegisterBlocs>(create: (_) => RegisterBlocs()),
     ),
     PageEntity(
       route: AppRoutes.SIGN_IN,
       page: const SignInPage(),
-      bloc: BlocProvider(create: (_) => SignInBloc()),
+      bloc: BlocProvider<SignInBloc>(create: (_) => SignInBloc()),
     ),
     PageEntity(
       route: AppRoutes.APPLICATION,
-      page: const Homescreen(), 
-      //bloc: null,
-      // Uncomment and provide appropriate BlocProvider if needed
-       bloc: BlocProvider(create: (_) => SomeBloc()),
+      page: const Homescreen(),
+      bloc: BlocProvider<AppBlocs>(create: (_) => AppBlocs()),
     ),
   ];
 
@@ -44,17 +44,22 @@ class AppPages {
     }
     return blocProviders;
   }
-  static MaterialPageRoute GenerateRouteSettings(RouteSettings settings){
-    if (settings.name!==null) {
-    var result = routes().where((element) => element.route==settings.name);
-    if (result.isNotEmpty) {
-    return MaterialPageRoute(builder: (_)=>result.first.page, settings: settings);
-    }
-    }
+
+  // Static method to generate route settings
+  static Route<dynamic> generateRouteSettings(RouteSettings settings) {
+    final route = AppPages().routes.firstWhere(
+      (element) => element.route == settings.name,
+      orElse: () => PageEntity(
+        route: AppRoutes.SIGN_IN,
+        page: SignInPage(),
+        bloc: BlocProvider<SignInBloc>(create: (_) => SignInBloc()),
+      ),
+    );
+
     return MaterialPageRoute(
-      builder: (_)=>SignInPage(), 
-      settings: settings
-      );
+      builder: (_) => route.page,
+      settings: settings,
+    );
   }
 }
 
