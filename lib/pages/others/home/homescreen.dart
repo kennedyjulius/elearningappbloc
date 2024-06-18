@@ -26,8 +26,10 @@ class _HomescreenState extends State<Homescreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-           homePageText("hello", color: AppColors.primaryThir),
-           homePageText("kennedy")
+           homePageText("hello", color: AppColors.primaryThreeElementText),
+           homePageText("kennedy"),
+           SizedBox(height: 20.h,),
+           searchView(),
 
             BlocBuilder<AppBlocs, AppState>(
               builder: (context, state) {
