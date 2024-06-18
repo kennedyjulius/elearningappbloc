@@ -1,5 +1,6 @@
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/home_bloc.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/home_event.dart';
+import 'package:elearning_app_bloc/pages/others/authentication/widgets/application_widget.dart';
 import 'package:elearning_app_bloc/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,88 +56,7 @@ class _HomescreenState extends State<Homescreen> {
                       _index = value;
                     });
                   },
-                  items: [
-                    BottomNavigationBarItem(
-                      label: "Home",
-                      icon: SizedBox(
-                        width: 15.w,
-                        height: 15.h,
-                        child: Image.asset("assets/icons/home.png"),
-                      ),
-                      activeIcon: SizedBox(
-                        height: 15.w,
-                        width: 15.w,
-                        child: Image.asset(
-                          "assets/icons/home.png",
-                          color: AppColors.primaryElement,
-                        ),
-                      ),
-                    ),
-                    BottomNavigationBarItem(
-                      label: "Search",
-                      icon: SizedBox(
-                        width: 15.w,
-                        height: 15.h,
-                        child: Image.asset("assets/icons/search.png"),
-                      ),
-                      activeIcon: SizedBox(
-                        height: 15.w,
-                        width: 15.w,
-                        child: Image.asset(
-                          "assets/icons/search.png",
-                          color: AppColors.primaryElement,
-                        ),
-                      ),
-                    ),
-                    BottomNavigationBarItem(
-                      label: "Course",
-                      icon: SizedBox(
-                        width: 15.w,
-                        height: 15.h,
-                        child: Image.asset("assets/icons/play-circle.png"),
-                      ),
-                      activeIcon: SizedBox(
-                        height: 15.w,
-                        width: 15.w,
-                        child: Image.asset(
-                          "assets/icons/play-circle.png",
-                          color: AppColors.primaryElement,
-                        ),
-                      ),
-                    ),
-                    BottomNavigationBarItem(
-                      label: "Chat",
-                      icon: SizedBox(
-                        width: 15.w,
-                        height: 15.h,
-                        child: Image.asset("assets/icons/message-circle.png"),
-                      ),
-                      activeIcon: SizedBox(
-                        height: 15.w,
-                        width: 15.w,
-                        child: Image.asset(
-                          "assets/icons/message-circle.png",
-                          color: AppColors.primaryElement,
-                        ),
-                      ),
-                    ),
-                    BottomNavigationBarItem(
-                      label: "Profile",
-                      icon: SizedBox(
-                        width: 15.w,
-                        height: 15.h,
-                        child: Image.asset("assets/icons/person2.png"),
-                      ),
-                      activeIcon: SizedBox(
-                        height: 15.w,
-                        width: 15.w,
-                        child: Image.asset(
-                          "assets/icons/person2.png",
-                          color: AppColors.primaryElement,
-                        ),
-                      ),
-                    ),
-                  ],
+                  items: bottomTabs,
                 ),
               ),
             ),
