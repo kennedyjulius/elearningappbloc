@@ -30,6 +30,8 @@ class _HomescreenState extends State<Homescreen> {
            homePageText("kennedy"),
            SizedBox(height: 20.h,),
            searchView(),
+           SizedBox(height: 10.h,),
+           slidersView(),
 
             BlocBuilder<AppBlocs, AppState>(
               builder: (context, state) {
