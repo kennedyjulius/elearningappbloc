@@ -4,6 +4,7 @@ import 'package:elearning_app_bloc/pages/others/authentication/bloc/register_blo
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_blocs.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/register.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/signin_page.dart';
+import 'package:elearning_app_bloc/pages/others/home/bloc/home_page_blocks.dart';
 import 'package:elearning_app_bloc/pages/others/home/homescreen.dart';
 import 'package:elearning_app_bloc/pages/welcome/bloc/welcome_bloc.dart';
 import 'package:elearning_app_bloc/pages/welcome/welcome.dart';
@@ -33,6 +34,11 @@ class AppPages {
       route: AppRoutes.APPLICATION,
       page: const Homescreen(),
       bloc: BlocProvider<AppBlocs>(create: (_) => AppBlocs()),
+    ),
+        PageEntity(
+      route: AppRoutes.HOME_PAGE,
+      page: const Homescreen(),
+      bloc: BlocProvider<AppBlocs>(create: (_) => HomePageBlocks()),
     ),
   ];
 

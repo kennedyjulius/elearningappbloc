@@ -23,6 +23,6 @@ class StorageService {
 
 
   bool getIsLoggedIn() {
-    return _prefs.getString(AppConstants.STORAGE_USER_PROFILE_KEY)==null?
+    return _prefs.getString(AppConstants.STORAGE_USER_PROFILE_KEY)==null??;
   }
 }
