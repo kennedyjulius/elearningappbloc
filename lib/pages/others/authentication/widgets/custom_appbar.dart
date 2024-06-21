@@ -202,7 +202,9 @@ Widget buildMenuView() {
           ],
         ),
       ),
-      buildSubtitleText("Your Subtitle Here"),
+      buildSubtitleText("All",),
+      buildSubtitleText("Popular,", ),
+      buildSubtitleText("Newest"),
     ],
   );
 }
