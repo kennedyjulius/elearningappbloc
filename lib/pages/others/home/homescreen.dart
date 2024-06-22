@@ -61,14 +61,8 @@ class _HomescreenState extends State<Homescreen> {
                       onTap: () {
                         
                       },
-                      child: Container(
-                        width: 100.w,
-                        height: 100.h,
-                        color: Colors.red,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(image: AssetImage("assets/icons/image.png")),
-                        ),
-                      ),
+                      child: courseGrid(),
+                      
                     );
                   },), 
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -136,5 +130,49 @@ class _HomescreenState extends State<Homescreen> {
         },
       ),
     );
+  }
+
+  Container courseGrid() {
+    return Container(
+                      padding: EdgeInsetsDirectional.all(12.w),
+                      width: 100.w,
+                      height: 100.h,
+                      color: Colors.red,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.w),
+                        image: DecorationImage(
+                          image: AssetImage(
+                            
+                            "assets/icons/image.png"), fit: BoxFit.fill),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Best course for IT and Engineering", 
+                          maxLines: 1,
+                          overflow: TextOverflow.fade,
+                          textAlign: TextAlign.left,
+                          softWrap: false,
+                          style: TextStyle(
+                            color: AppColors.primaryElementText,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11.sp,
+                          ),
+                          ),
+                          SizedBox(height: 5.h,),
+                          Text("Best course for IT", 
+                          maxLines: 1,
+                          overflow: TextOverflow.fade,
+                          textAlign: TextAlign.left,
+                          softWrap: false,
+                          style: TextStyle(
+                            color: AppColors.primaryFourElementText,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 8.sp,
+                          ),),
+                        ],
+                      ),
+                    );
   }
 }
