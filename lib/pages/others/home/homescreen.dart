@@ -1,8 +1,9 @@
-import 'package:elearning_app_bloc/pages/others/authentication/bloc/home_bloc.dart';
+
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/home_event.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/widgets/application_widget.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/widgets/custom_appbar.dart';
 import 'package:elearning_app_bloc/pages/others/home/bloc/home_page_blocks.dart';
+import 'package:elearning_app_bloc/pages/others/home/bloc/home_page_events.dart';
 import 'package:elearning_app_bloc/pages/others/home/bloc/home_page_states.dart';
 import 'package:elearning_app_bloc/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -24,29 +25,62 @@ class _HomescreenState extends State<Homescreen> {
     return Scaffold(
       appBar: buildAppBar(),
       body: BlocBuilder<HomePageBlocks, HomePageStates>(
-        builder: (context, state) { {
-            return Container(
-              margin: EdgeInsets.only(top: 20.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildHomePageTitle("hello",
+        builder: (context, state) {
+          return Container(
+            margin: EdgeInsets.only(top: 20.h),
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: buildHomePageTitle("hello",
                       color: AppColors.primaryThreeElementText),
-                  buildHomePageTitle("kennedy"),
-                  SizedBox(
-                    height: 20.h,
+                ),
+                SliverToBoxAdapter(child: buildHomePageTitle("kennedy")),
+                SliverPadding(
+                  padding: EdgeInsets.only(
+                    top: 20.h,
                   ),
-                  buildSearchView(),
-                  SizedBox(
-                    height: 10.h,
+                ),
+                SliverToBoxAdapter(child: buildSearchView()),
+                SliverPadding(
+                  padding: EdgeInsets.only(
+                    top: 20.h,
                   ),
-                  buildSlidersView(context, state),
-                  buildSlidersView(context, state),
-                  buildMenuView(),
+                ),
+                SliverToBoxAdapter(child: buildSlidersView(context, state)),
+                SliverToBoxAdapter(child: buildSlidersView(context, state)),
+                SliverToBoxAdapter(child: buildMenuView()),
+                SliverPadding(padding: EdgeInsets.symmetric(
+                  vertical: 18.h,
+                  horizontal: 0.w
+                )),
+                SliverGrid(
+                  delegate: SliverChildBuilderDelegate(
+                    childCount: 4,
+                    (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        
+                      },
+                      child: Container(
+                        width: 100.w,
+                        height: 100.h,
+                        color: Colors.red,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(image: AssetImage("assets/icons/image.png")),
+                        ),
+                      ),
+                    );
+                  },), 
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 15,
+                    crossAxisSpacing: 15,
+                    childAspectRatio: 1.6,
+                    ),
+                  ),
 
-
-
-                  BlocBuilder<AppBlocs, AppState>(
+                SliverFillRemaining(
+                  child: BlocBuilder<AppBlocs, AppState>(
                     builder: (context, state) {
                       return Container(
                         color: Colors.white,
@@ -81,8 +115,8 @@ class _HomescreenState extends State<Homescreen> {
                                 onTap: (value) {
                                   // Dispatch event to change state
                                   context
-                                      .read<AppBlocs>()
-                                      .add(TriggerAppEvent(value));
+                                      .read<HomePageBlocks>()
+                                      .add(TriggerAppEvent(value) as HomePageEvents);
                                   setState(() {
                                     _index = value;
                                   });
@@ -95,11 +129,10 @@ class _HomescreenState extends State<Homescreen> {
                       );
                     },
                   ),
-                ],
-              ),
-            );
-          }
-          
+                ),
+              ],
+            ),
+          );
         },
       ),
     );

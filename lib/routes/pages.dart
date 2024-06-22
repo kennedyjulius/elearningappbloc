@@ -33,12 +33,12 @@ class AppPages {
     PageEntity(
       route: AppRoutes.APPLICATION,
       page: const Homescreen(),
-      bloc: BlocProvider<AppBlocs>(create: (_) => AppBlocs()),
+      bloc: BlocProvider<AppBlocks>(create: (_) => AppBlocks()),
     ),
         PageEntity(
       route: AppRoutes.HOME_PAGE,
       page: const Homescreen(),
-      bloc: BlocProvider<AppBlocs>(create: (_) => HomePageBlocks()),
+      bloc: BlocProvider<HomePageBlocks>(create: (_) => HomePageBlocks()),
     ),
   ];
 
