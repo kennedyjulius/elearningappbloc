@@ -1,3 +1,4 @@
+import 'package:elearning_app_bloc/common/entities/user.dart';
 import 'package:elearning_app_bloc/global.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_blocs.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/widgets/flutter_toast.dart';
@@ -5,6 +6,7 @@ import 'package:elearning_app_bloc/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class SignInController {
   final BuildContext context;
@@ -48,7 +50,15 @@ class SignInController {
 
           var user = credential.user;
           if (user != null) {
-            toastInfo(msg: "You are not a suer of this account");
+            String? displayName = user.displayName;
+            String? email = user.email;
+            String? id = user.uid;
+            String? photoUrl = user.photoURL;
+
+            LoginRequestEntity loginRequestEntity = LoginRequestEntity();
+            loginRequestEntity.avatar = photoUrl;
+
+            toastInfo(msg: "Successful login");
             Global.storageService.setString(AppConstants.STORAGE_USER_PROFILE_KEY, "12345678" as bool);
             Navigator.of(context).pushNamedAndRemoveUntil("/homescreen", (route) => false,);
           } else {
@@ -82,5 +92,14 @@ class SignInController {
     } catch (e) {
       print("An unexpected error occurred: $e");
     }
+  }
+
+  void asyncPostAllData(LoginRequestEntity LoginRequestEntity){
+    EasyLoading.show(
+      indicator: CircularProgressIndicator(),
+      maskType: EasyLoadingMaskType.clear,
+      dismissOnTap: true,
+    );
+    var result = await UserAPI.login(param)
   }
 }
