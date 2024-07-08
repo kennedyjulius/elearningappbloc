@@ -1,3 +1,4 @@
+import 'package:elearning_app_bloc/apis/user.api.dart';
 import 'package:elearning_app_bloc/common/entities/user.dart';
 import 'package:elearning_app_bloc/global.dart';
 import 'package:elearning_app_bloc/pages/others/authentication/bloc/sign_in_blocs.dart';
@@ -50,13 +51,13 @@ class SignInController {
 
           var user = credential.user;
           if (user != null) {
-            String? displayName = user.displayName;
-            String? email = user.email;
-            String? id = user.uid;
-            String? photoUrl = user.photoURL;
-
+            asyncPostAllData(LoginRequestEntity as LoginRequestEntity);
             LoginRequestEntity loginRequestEntity = LoginRequestEntity();
+            loginRequestEntity.name = displayName;
             loginRequestEntity.avatar = photoUrl;
+            loginRequestEntity.email = email;
+            loginRequestEntity.open_id = id;
+            loginRequestEntity.type = 1;
 
             toastInfo(msg: "Successful login");
             Global.storageService.setString(AppConstants.STORAGE_USER_PROFILE_KEY, "12345678" as bool);
@@ -94,12 +95,12 @@ class SignInController {
     }
   }
 
-  void asyncPostAllData(LoginRequestEntity LoginRequestEntity){
+  Future<void> asyncPostAllData(LoginRequestEntity LoginRequestEntity) async {
     EasyLoading.show(
       indicator: CircularProgressIndicator(),
       maskType: EasyLoadingMaskType.clear,
       dismissOnTap: true,
     );
-    var result = await UserAPI.login(param)
+    var result = await UserApi.login(params: LoginRequestEntity);
   }
 }
