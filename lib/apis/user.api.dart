@@ -9,7 +9,7 @@ class UserApi {
         'api/login',
         queryParameters: param?.toJson(),
       );
-      return response;
+      return UserLoginResponseEntity(response);
     } catch (e) {
       print('Login failed: $e');
       return null;

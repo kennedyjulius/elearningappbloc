@@ -3,6 +3,7 @@ import 'package:elearning_app_bloc/routes/pages.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<void> main() async {
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       providers: AppPages.allBlocProviders(context), 
       child: ScreenUtilInit(
         builder: (context, child) => MaterialApp(
+          builder: EasyLoading.init(),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             // Use Material 3 design system if available

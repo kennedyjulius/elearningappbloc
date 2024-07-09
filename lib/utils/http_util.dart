@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:elearning_app_bloc/utils/constants.dart';
 
 class HttpUtil {
   static final HttpUtil _instance = HttpUtil._internal();
@@ -8,7 +9,7 @@ class HttpUtil {
 
   HttpUtil._internal() {
     BaseOptions options = BaseOptions(
-      baseUrl: "http://127.0.0.1:8000",
+      baseUrl: AppConstants.SERVER_AP1_URL,
       connectTimeout: Duration(seconds: 5),
       receiveTimeout: Duration(seconds: 5),
       headers: {},

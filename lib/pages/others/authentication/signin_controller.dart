@@ -102,5 +102,11 @@ class SignInController {
       dismissOnTap: true,
     );
     var result = await UserApi.login(params: LoginRequestEntity);
+    try {
+      Global.storageService.setString(AppConstants.STORAGE_USER_TOKEN_KEY, result.data.access_token);
+      Navigator.of(context).pushNamedAndRemoveUntil("/application", (route) => false,);
+    } catch (e) {
+      print("Saving Local Storage Error" ${e.toString()});
+    }
   }
 }

@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/src/response.dart';
 
 class LoginRequestEntity {
   int? type;
@@ -39,7 +40,7 @@ class UserLoginResponseEntity {
   String? msg;
   UserItem? data;
 
-  UserLoginResponseEntity({
+  UserLoginResponseEntity(Response response, {
     this.code,
     this.msg,
     this.data,
