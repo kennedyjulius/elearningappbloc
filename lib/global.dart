@@ -10,7 +10,6 @@ class Global {
     await Firebase.initializeApp(
 
     );
-    storageService = (await StorageService().init()) as StorageService;
-    
+    storageService = await StorageService().init();
   }
 }

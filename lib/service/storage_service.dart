@@ -40,9 +40,16 @@ class StorageService {
 
     var profileOffline = _prefs.getString(AppConstants.STORAGE_USER_PROFILE_KEY)??"";
     if (profileOffline.isNotEmpty) {
-     return UserItem.fromJson(jsonEncode(profileOffline));
+     return UserItem.fromJson(jsonEncode(profileOffline) as Map<String, dynamic>);
     }
     return UserItem();
+  }
+
+  getUserProfile(){
+    var profileOffline = _prefs.getString(AppConstants.STORAGE_USER_PROFILE_KEY)??"";
+    if (profileOffline.isNotEmpty) {
+    UserItem.fromJson(jsonDecode(profileOffline));
+    }
   }
 }
 

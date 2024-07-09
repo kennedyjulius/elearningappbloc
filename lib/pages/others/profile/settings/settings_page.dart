@@ -18,6 +18,7 @@ import '../../../../service/storage_service.dart';
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
+
   @override
   State<SettingsPage> createState() => _SettingsPageState();
 }
@@ -25,6 +26,7 @@ class SettingsPage extends StatefulWidget {
 void removeUserData(){
   Global.storageService.remove(AppConstants.STORAGE_USER_PROFILE_KEY);
   //BuildContext context;
+  var context;
   context.read<AppBlocs>().add(TriggerAppEvent(0));
   Global.storageService.remove(AppConstants.STORAGE_USER_TOKEN_KEY);
   Global.storageService.remove(AppConstants.STORAGE_USER_PROFILE_KEY);
