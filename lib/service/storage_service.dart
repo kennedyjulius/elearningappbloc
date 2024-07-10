@@ -36,7 +36,7 @@ class StorageService {
     return _prefs.getString(AppConstants.STORAGE_USER_TOKEN_KEY) ?? "";
   }
 
-  UserItem getUserProfile(){
+  UserItem? getUserProfile(){
 
     var profileOffline = _prefs.getString(AppConstants.STORAGE_USER_PROFILE_KEY)??"";
     if (profileOffline.isNotEmpty) {
@@ -45,11 +45,11 @@ class StorageService {
     return UserItem();
   }
 
-  getUserProfile(){
-    var profileOffline = _prefs.getString(AppConstants.STORAGE_USER_PROFILE_KEY)??"";
-    if (profileOffline.isNotEmpty) {
-    UserItem.fromJson(jsonDecode(profileOffline));
-    }
+  // getUserProfile(){
+  //   var profileOffline = _prefs.getString(AppConstants.STORAGE_USER_PROFILE_KEY)??"";
+  //   if (profileOffline.isNotEmpty) {
+  //   UserItem.fromJson(jsonDecode(profileOffline));
+  //   }
+  //   return UserItem();
   }
-}
 

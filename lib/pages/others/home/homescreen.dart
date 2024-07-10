@@ -5,6 +5,7 @@ import 'package:elearning_app_bloc/pages/others/authentication/widgets/custom_ap
 import 'package:elearning_app_bloc/pages/others/home/bloc/home_page_blocks.dart';
 import 'package:elearning_app_bloc/pages/others/home/bloc/home_page_events.dart';
 import 'package:elearning_app_bloc/pages/others/home/bloc/home_page_states.dart';
+import 'package:elearning_app_bloc/pages/others/home/home_controller.dart';
 import 'package:elearning_app_bloc/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,10 +21,21 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   int _index = 0;
 
+  late HomeController _homeController;
+
+  @override
+  void initState() {
+    super.initState();
+    _homeController = HomeController(context: context);
+    _homeController.init();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(),
+    return _homeController.userProfile!=null?Scaffold(
+      appBar: buildAppBar(_homeController.userProfile!.avatar.toString()),
       body: BlocBuilder<HomePageBlocks, HomePageStates>(
         builder: (context, state) {
           return Container(
@@ -34,7 +46,7 @@ class _HomescreenState extends State<Homescreen> {
                   child: buildHomePageTitle("hello",
                       color: AppColors.primaryThreeElementText),
                 ),
-                SliverToBoxAdapter(child: buildHomePageTitle("kennedy")),
+                SliverToBoxAdapter(child: buildHomePageTitle(_homeController.userProfile.name!)),
                 SliverPadding(
                   padding: EdgeInsets.only(
                     top: 20.h,
@@ -129,6 +141,8 @@ class _HomescreenState extends State<Homescreen> {
           );
         },
       ),
+    ): Container(
+      child: Center(child: Text("Data Not Found")),
     );
   }
 

@@ -4,16 +4,17 @@ import 'package:elearning_app_bloc/pages/others/home/bloc/home_page_blocks.dart'
 import 'package:elearning_app_bloc/pages/others/home/bloc/home_page_events.dart';
 import 'package:elearning_app_bloc/pages/others/home/bloc/home_page_states.dart';
 import 'package:elearning_app_bloc/utils/colors.dart';
+import 'package:elearning_app_bloc/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 TextEditingController _searchController = TextEditingController();
 
-AppBar buildAppBar() {
+AppBar buildAppBar(String avatar) {
   return AppBar(
     title: Container(
-      margin: EdgeInsets.symmetric(horizontal: 5.w),
+      margin: EdgeInsets.symmetric(horizontal: 7.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -28,7 +29,7 @@ AppBar buildAppBar() {
             height: 40.h,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/icons/person.png"),
+                image: NetworkImage("${AppConstants.SERVER_AP1_URL}$avatar")
               ),
             ),
           ),

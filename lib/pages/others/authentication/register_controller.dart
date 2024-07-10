@@ -29,7 +29,8 @@ class RegisterController {
       if (credential.user != null) {
         await credential.user?.sendEmailVerification();
         await credential.user?.updateDisplayName(userName);
-        toastInfo(msg: "An email verification has been sent to your email");
+        String photiUrl = "uploads/default.png";
+        toastInfo(msg: "An email verification has been sent to your email, To activate it click the email sent below");
         Navigator.of(context).pop();
       }
     } on FirebaseAuthException catch (e) {
